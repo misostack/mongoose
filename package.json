@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/misostack/mongoose#readme",
   "dependencies": {
-    "mongoose": "^6.4.4"
+    "mongoose": "^6.4.4",
+    "uuid": "^8.3.2"
   }
 }
