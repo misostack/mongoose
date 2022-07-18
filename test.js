@@ -11,11 +11,15 @@ const main = async () => {
     content: "favorite content",
     slug: v4(),
   });
-  example.save((error, doc) => {
+  example.save(async (error, doc) => {
     if (error) {
       throw new Error(error);
     }
-    console.log(doc.toJSON());
+
+    // test update
+    doc.title = "A new title";
+    const res = await doc.save();
+    console.log(res.title, res.updatedAt);
   });
 };
 

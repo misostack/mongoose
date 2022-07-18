@@ -21,6 +21,31 @@ const exampleSchema = new Schema(
   {}
 );
 
+// add hooks
+exampleSchema.pre("validate", function (next) {
+  console.log("doc:pre:validate", this);
+  // update
+  next();
+});
+// preSave
+const preSaveHook = function (next) {
+  console.log("doc:pre:save", this);
+  this.updatedAt = new Date();
+  // update
+  next();
+};
+exampleSchema.pre("save", preSaveHook);
+exampleSchema.pre("updateOne", function (next) {
+  console.log("doc:pre:updateOne", this);
+  // update
+  next();
+});
+
+exampleSchema.post("validate", (doc) => {
+  console.log("doc:post:validate", doc);
+  // update
+});
+
 const Example = mongoose.model("Example", exampleSchema);
 
 module.exports = {
