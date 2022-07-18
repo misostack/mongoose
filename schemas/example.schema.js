@@ -28,13 +28,16 @@ exampleSchema.pre("validate", function (next) {
   next();
 });
 // preSave
-const preSaveHook = function (next) {
-  console.log("doc:pre:save", this);
-  this.updatedAt = new Date();
+const preSaveHook = (doc, next) => {
+  console.log("doc:pre:save", doc);
+  doc.updatedAt = new Date();
   // update
   next();
 };
-exampleSchema.pre("save", preSaveHook);
+
+exampleSchema.pre("save", function (next) {
+  preSaveHook(this, next);
+});
 exampleSchema.pre("updateOne", function (next) {
   console.log("doc:pre:updateOne", this);
   // update
